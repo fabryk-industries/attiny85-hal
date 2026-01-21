@@ -13,13 +13,13 @@
 extern "C" {
 #endif
 
-#include "gpio404/gpio.h"
-#include "timer404/tca0.h"
-#include "timer404/tcb0.h"
-#include "adc404/adc.h"
-#include "usart404/usart.h"
-#include "twi404/twi.h"
-#include "spi404/spi.h"
+#include "gpio/gpio.h"
+#include "timer/tca0.h"
+#include "timer/tcb0.h"
+#include "adc/adc.h"
+#include "usart/usart.h"
+#include "twi/twi.h"
+#include "spi/spi.h"
 #include "util/assert.h"
 #include "util/atomic.h"
 

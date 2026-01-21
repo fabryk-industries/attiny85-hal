@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "twi/twi.h"
+#include "attiny404/twi/twi.h"
 
 twi_t twi_init(twi_config_t config) {
     TWI0.MBAUD = (config.baud == TWI_BAUD_400KHZ) ? 47 : 255;

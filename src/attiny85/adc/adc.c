@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "adc/adc.h"
+#include "attiny85/adc/adc.h"
 
 adc_t adc_init(adc_reference_t ref, adc_prescaler_t prescaler) {
     uint8_t ref_bits = 0;

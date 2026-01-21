@@ -2,7 +2,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "uart/uart.h"
+#include "attiny85/uart/uart.h"
 
 uart_t uart_init(uart_config_t config) {
     DDRB |= (1 << config.tx_pin);

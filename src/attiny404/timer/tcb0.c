@@ -1,11 +1,11 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "timer/tcb0.h"
+#include "tcb0.h"
 
 static uint32_t f_cpu_khz = 16000;
 
 void tcb_init(tcb_config_t config) {
-    TCB0.CTRLB = TCB_CNTMODE_PWM_gc;
+    TCB0.CTRLB = TCB_CNTMODE_PWM8_gc;
     TCB0.CTRLA = (config.prescaler << TCB_CLKSEL_gp);
     TCB0.CTRLA |= TCB_ENABLE_bm;
 }

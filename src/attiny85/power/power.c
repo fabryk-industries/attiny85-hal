@@ -8,7 +8,7 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <avr/wdt.h>
-#include "power/power.h"
+#include "attiny85/power/power.h"
 
 void hal_sleep_enable(sleep_mode_t mode) {
     switch (mode) {

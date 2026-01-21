@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "usi/spi.h"
+#include "attiny85/usi/spi.h"
 
 #define USI_THREE_WIRE_MODE ((1 << USIWM0) | (0 << USIWM1))
 #define USI_EXTERNAL_CLOCK    ((1 << USICS1) | (0 << USICS0))

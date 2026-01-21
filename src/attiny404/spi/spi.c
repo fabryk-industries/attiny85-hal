@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "spi/spi.h"
+#include "attiny404/spi/spi.h"
 
 spi_t spi_init(spi_config_t config) {
     SPI0.CTRLA = SPI_ENABLE_bm;
@@ -24,13 +24,13 @@ spi_t spi_init(spi_config_t config) {
         case SPI_MODE_0:
             break;
         case SPI_MODE_1:
-            SPI0.CTRLB |= SPI_MODE1_bm;
+            SPI0.CTRLB |= SPI_MODE_0_bm;
             break;
         case SPI_MODE_2:
-            SPI0.CTRLB |= SPI_MODE2_bm;
+            SPI0.CTRLB |= SPI_MODE_1_bm;
             break;
         case SPI_MODE_3:
-            SPI0.CTRLB |= SPI_MODE2_bm | SPI_MODE1_bm;
+            SPI0.CTRLB |= SPI_MODE_0_bm | SPI_MODE_1_bm;
             break;
     }
 

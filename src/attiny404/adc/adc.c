@@ -1,23 +1,17 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "adc/adc.h"
+#include "attiny404/adc/adc.h"
 
 adc_t adc_init(adc_reference_t ref, adc_prescaler_t prescaler, adc_resolution_t resolution) {
     ADC0.CTRLA = 0;
+    ADC0.CTRLC = 0;
 
-    ADC0.CTRLA |= (prescaler << ADC_PRESCALER_gp);
-    ADC0.CTRLA |= (ref << ADC_REFSEL_gp);
+    // Set reference and prescaler in CTRLC
+    ADC0.CTRLC = (ref << ADC_REFSEL_gp) | prescaler;
 
-    switch (resolution) {
-        case ADC_RES_8BIT:
-            ADC0.CTRLA |= ADC_RESSEL_8BIT_gc;
-            break;
-        case ADC_RES_10BIT:
-            ADC0.CTRLA |= ADC_RESSEL_10BIT_gc;
-            break;
-        case ADC_RES_12BIT:
-            ADC0.CTRLA |= ADC_RESSEL_12BIT_gc;
-            break;
+    // Set resolution in CTRLA (bit 7: RESSEL, 1 = 8-bit, 0 = 10-bit)
+    if (resolution == ADC_RES_8BIT) {
+        ADC0.CTRLA |= ADC_RESSEL_bm;
     }
 
     adc_t adc = {ref, prescaler, resolution, 0, 0};
@@ -39,7 +33,7 @@ uint16_t adc_read_blocking(adc_t *adc, adc_channel_t channel) {
     ADC0.MUXPOS = channel;
     ADC0.COMMAND = ADC_STCONV_bm;
 
-    while (ADC0.INTFLAGS & ADC_RESRDY_bm == 0);
+    while ((ADC0.INTFLAGS & ADC_RESRDY_bm) == 0);
 
     adc->in_progress = 0;
 

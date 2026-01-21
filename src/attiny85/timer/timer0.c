@@ -3,7 +3,7 @@
  * @brief Timer0 implementation for ATtiny85
  */
 
-#include "timer/timer0.h"
+#include "attiny85/timer/timer0.h"
 #include <avr/io.h>
 #include <util/delay.h>
 

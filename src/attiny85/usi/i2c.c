@@ -2,7 +2,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "usi/i2c.h"
+#include "attiny85/usi/i2c.h"
 
 #define SDA_PIN     (1 << PB0)
 #define SCL_PIN     (1 << PB2)

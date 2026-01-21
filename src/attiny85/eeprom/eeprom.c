@@ -5,7 +5,7 @@
 
 #include <stdint.h>
 #include <avr/eeprom.h>
-#include "eeprom/eeprom.h"
+#include "attiny85/eeprom/eeprom.h"
 
 uint8_t hal_eeprom_read_byte(uint16_t addr) {
     return eeprom_read_byte((const uint8_t *)addr);

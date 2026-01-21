@@ -7,7 +7,8 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include "attiny404.h"
+#include <stdio.h>
+#include "attiny404/attiny404.h"
 
 int main(void) {
     usart_config_t uart_config = {
@@ -17,14 +18,8 @@ int main(void) {
         .stopbits = USART_STOPBITS_1
     };
 
-    adc_config_t adc_config = {
-        .ref = ADC_REF_VDD,
-        .prescaler = ADC_PRESCALER_DIV64,
-        .resolution = ADC_RES_10BIT
-    };
-
     usart_t uart = usart_init(uart_config);
-    adc_t adc = adc_init(adc_config);
+    adc_t adc = adc_init(ADC_REF_VDD, ADC_PRESCALER_DIV64, ADC_RES_10BIT);
     adc_enable(&adc);
 
     while (1) {

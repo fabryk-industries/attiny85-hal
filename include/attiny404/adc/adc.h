@@ -45,7 +45,6 @@ typedef enum {
 typedef enum {
     ADC_RES_8BIT,
     ADC_RES_10BIT,
-    ADC_RES_12BIT,
 } adc_resolution_t;
 
 typedef struct {

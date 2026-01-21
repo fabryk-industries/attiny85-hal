@@ -87,6 +87,7 @@ $(BUILD_DIR):
 # ============================================================================
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 	@echo "  CC    $<"
+	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # ============================================================================
@@ -113,7 +114,7 @@ $(BUILD_DIR)/%.elf: $(BUILD_DIR)/%.o $(BUILD_DIR)/$(LIB_NAME) | $(BUILD_DIR)
 $(BUILD_DIR)/%.hex: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
 	@echo "  HEX   $(BUILD_DIR)/$*.hex"
 	@$(OBJCOPY) -O ihex $< $@
-	-@$(SIZE) -C --mcu=$(MCU) $< || true
+	-@$(SIZE) --mcu=$(MCU) $< || true
 
 .PHONY: examples
 

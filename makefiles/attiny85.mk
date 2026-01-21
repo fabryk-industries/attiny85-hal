@@ -28,6 +28,14 @@ CFLAGS += -DF_CPU=$(F_CPU)     # CPU frequency
 CFLAGS += -fdata-sections      # Separate data into sections
 CFLAGS += -ffunction-sections  # Separate functions into sections
 CFLAGS += -Iinclude            # Include path
+CFLAGS += -Iinclude/attiny85/adc
+CFLAGS += -Iinclude/attiny85/eeprom
+CFLAGS += -Iinclude/attiny85/gpio
+CFLAGS += -Iinclude/attiny85/power
+CFLAGS += -Iinclude/attiny85/timer
+CFLAGS += -Iinclude/attiny85/uart
+CFLAGS += -Iinclude/attiny85/usi
+CFLAGS += -Iinclude/attiny85/util
 
 # Linker Flags
 LDFLAGS = -mmcu=$(MCU)
@@ -39,19 +47,18 @@ LDFLAGS += -Wl,--gc-sections  # Remove unused sections
 SRC_DIR = src
 INCLUDE_DIR = include
 BUILD_DIR = build
-EXAMPLES_DIR = examples
 
 # ============================================================================
 # Source Files (Phase 1-3)
 # ============================================================================
-SOURCES = $(SRC_DIR)/gpio/gpio.c \
-          $(SRC_DIR)/timer/timer0.c \
-          $(SRC_DIR)/adc/adc.c \
-          $(SRC_DIR)/power/power.c \
-          $(SRC_DIR)/eeprom/eeprom.c \
-          $(SRC_DIR)/usi/spi.c \
-          $(SRC_DIR)/usi/i2c.c \
-          $(SRC_DIR)/uart/uart.c
+SOURCES = $(SRC_DIR)/attiny85/gpio/gpio.c \
+          $(SRC_DIR)/attiny85/timer/timer0.c \
+          $(SRC_DIR)/attiny85/adc/adc.c \
+          $(SRC_DIR)/attiny85/power/power.c \
+          $(SRC_DIR)/attiny85/eeprom/eeprom.c \
+          $(SRC_DIR)/attiny85/usi/spi.c \
+          $(SRC_DIR)/attiny85/usi/i2c.c \
+          $(SRC_DIR)/attiny85/uart/uart.c
 
 # ============================================================================
 # Object Files and Library
@@ -84,31 +91,6 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 $(LIB): $(OBJECTS)
 	@$(AR) rcs $@
 
-# ============================================================================
-# Build Examples
-# ============================================================================
-#examples: $(EXAMPLES)
-#
-## Build individual examples
-#$(EXAMPLES): %: $(EXAMPLES_DIR)/%$(TARGET).c $(LIB) | $(BUILD_DIR)/%$(TARGET).elf
-#	@echo "  CC    $(EXAMPLES_DIR)/%$(TARGET).c"
-#	@$(CC) $(CFLAGS) -L$(BUILD_DIR) -lattiny85 $(LDFLAGS) -o $(BUILD_DIR)/%$(TARGET).elf
-#	@$(OBJCOPY) -O ihex $(BUILD_DIR)/%$(TARGET).elf $(BUILD_DIR)/%$(TARGET).hex
-#	-@$(SIZE) -C --mcu=$(MCU) $(BUILD_DIR)/%$(TARGET).elf || true
-#	@echo "  HEX   $(BUILD_DIR)/%$(TARGET).hex"
-#.PHONY: examples
-
-# ============================================================================
-# Flash Example (requires avrdude)
-# ============================================================================
-#flash-%: examples
-#	@echo "  FLASH $(BUILD_DIR)/$*.hex"
-#	@avrdude -p $(MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$*.hex
-#.PHONY: flash-%
-
-# Alternative flash command for different programmers:
-# flash-%: examples
-# 	avrdude -p $(MCU) -c arduino -P /dev/ttyUSB0 -b 19200 -U flash:w:$(BUILD_DIR)/$*.hex
 
 # ============================================================================
 # Fuse Configuration

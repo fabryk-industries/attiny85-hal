@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "usart/usart.h"
+#include "attiny404/usart/usart.h"
 
 static uint32_t f_cpu_hz = 16000000UL;
 
@@ -42,7 +42,7 @@ usart_t usart_init(usart_config_t config) {
             USART0.CTRLC = USART_CHSIZE_8BIT_gc;
             break;
         case USART_DATABITS_9:
-            USART0.CTRLC = USART_CHSIZE_9BIT_gc;
+            USART0.CTRLC = USART_CHSIZE_9BITH_gc;
             break;
     }
 
@@ -57,8 +57,6 @@ usart_t usart_init(usart_config_t config) {
     if (config.stopbits == USART_STOPBITS_2) {
         USART0.CTRLC |= USART_SBMODE_2BIT_gc;
     }
-
-    USART0.CTRLA |= USART_ENABLE_bm;
 
     usart_t usart = {config};
     return usart;

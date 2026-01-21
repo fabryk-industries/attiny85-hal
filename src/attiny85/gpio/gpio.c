@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
-#include "gpio/gpio.h"
+#include "attiny85/gpio/gpio.h"
 
 static gpio_pcint_callback_t pcint_callbacks[6] = {0};
 static uint8_t pcint_previous_state = 0;

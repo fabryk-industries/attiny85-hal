@@ -17,16 +17,12 @@ typedef enum {
 
 typedef enum {
     TCA_PWM_SINGLE_SLOPE,
-    TCA_PWM_SPLIT_MODE,
 } tca_pwm_mode_t;
 
 typedef enum {
     TCA_WO0,
     TCA_WO1,
     TCA_WO2,
-    TCA_WO3,
-    TCA_WO4,
-    TCA_WO5,
 } tca_pwm_channel_t;
 
 typedef struct {

@@ -1,15 +1,11 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "timer/tca0.h"
+#include "tca0.h"
 
 tca_pwm_t tca_pwm_init(tca_config_t config, tca_pwm_channel_t channel) {
     TCA0.SINGLE.CTRLA = TCA_SINGLE_ENABLE_bm;
 
-    if (config.mode == TCA_PWM_SINGLE_SLOPE) {
-        TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_SINGLESLOPE_gc;
-    } else {
-        TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_SPLIT_gc;
-    }
+    TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_SINGLESLOPE_gc;
 
     TCA0.SINGLE.CTRLA |= (config.prescaler << TCA_SINGLE_CLKSEL_gp);
     TCA0.SINGLE.CTRLA |= TCA_SINGLE_ENABLE_bm;
@@ -23,15 +19,6 @@ tca_pwm_t tca_pwm_init(tca_config_t config, tca_pwm_channel_t channel) {
             break;
         case TCA_WO2:
             TCA0.SINGLE.CTRLB |= TCA_SINGLE_CMP2EN_bm;
-            break;
-        case TCA_WO3:
-            TCA0.SINGLE.CTRLC |= TCA_SINGLE_CMP3EN_bm;
-            break;
-        case TCA_WO4:
-            TCA0.SINGLE.CTRLD |= TCA_SINGLE_CMP4EN_bm;
-            break;
-        case TCA_WO5:
-            TCA0.SINGLE.CTRLD |= TCA_SINGLE_CMP5EN_bm;
             break;
     }
 
@@ -50,15 +37,6 @@ void tca_pwm_set_duty(tca_pwm_t pwm, uint8_t duty) {
         case TCA_WO2:
             TCA0.SINGLE.CMP2 = duty;
             break;
-        case TCA_WO3:
-            TCA0.SINGLE.CMP3 = duty;
-            break;
-        case TCA_WO4:
-            TCA0.SINGLE.CMP4 = duty;
-            break;
-        case TCA_WO5:
-            TCA0.SINGLE.CMP5 = duty;
-            break;
     }
 }
 
@@ -70,12 +48,6 @@ uint8_t tca_pwm_get_duty(tca_pwm_t pwm) {
             return TCA0.SINGLE.CMP1;
         case TCA_WO2:
             return TCA0.SINGLE.CMP2;
-        case TCA_WO3:
-            return TCA0.SINGLE.CMP3;
-        case TCA_WO4:
-            return TCA0.SINGLE.CMP4;
-        case TCA_WO5:
-            return TCA0.SINGLE.CMP5;
         default:
             return 0;
     }
@@ -91,15 +63,6 @@ void tca_pwm_disable(tca_pwm_t pwm) {
             break;
         case TCA_WO2:
             TCA0.SINGLE.CTRLB &= ~TCA_SINGLE_CMP2EN_bm;
-            break;
-        case TCA_WO3:
-            TCA0.SINGLE.CTRLC &= ~TCA_SINGLE_CMP3EN_bm;
-            break;
-        case TCA_WO4:
-            TCA0.SINGLE.CTRLD &= ~TCA_SINGLE_CMP4EN_bm;
-            break;
-        case TCA_WO5:
-            TCA0.SINGLE.CTRLD &= ~TCA_SINGLE_CMP5EN_bm;
             break;
     }
 }

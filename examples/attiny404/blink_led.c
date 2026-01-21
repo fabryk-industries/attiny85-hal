@@ -7,7 +7,7 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include "attiny404.h"
+#include "attiny404/attiny404.h"
 
 int main(void) {
     gpio_init(GPIO_PA1, GPIO_MODE_OUTPUT);
