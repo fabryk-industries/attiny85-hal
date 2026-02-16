@@ -18,11 +18,11 @@ adc_t adc_init(adc_reference_t ref, adc_prescaler_t prescaler, adc_resolution_t 
     return adc;
 }
 
-void adc_enable(adc_t *adc) {
+void adc_enable() {
     ADC0.CTRLA |= ADC_ENABLE_bm;
 }
 
-void adc_disable(adc_t *adc) {
+void adc_disable() {
     ADC0.CTRLA &= ~ADC_ENABLE_bm;
 }
 
@@ -56,6 +56,6 @@ uint8_t adc_is_busy(adc_t *adc) {
     return adc->in_progress;
 }
 
-uint16_t adc_read_result(adc_t *adc) {
+uint16_t adc_read_result() {
     return ADC0.RES;
 }

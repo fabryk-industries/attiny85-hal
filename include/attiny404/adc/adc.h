@@ -57,9 +57,9 @@ typedef struct {
 
 adc_t adc_init(adc_reference_t ref, adc_prescaler_t prescaler, adc_resolution_t resolution);
 
-void adc_enable(adc_t *adc);
+void adc_enable();
 
-void adc_disable(adc_t *adc);
+void adc_disable();
 
 uint16_t adc_read_blocking(adc_t *adc, adc_channel_t channel);
 
@@ -67,6 +67,6 @@ void adc_read_start(adc_t *adc, adc_channel_t channel);
 
 uint8_t adc_is_busy(adc_t *adc);
 
-uint16_t adc_read_result(adc_t *adc);
+uint16_t adc_read_result();
 
 #endif

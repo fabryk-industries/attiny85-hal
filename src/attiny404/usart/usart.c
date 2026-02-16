@@ -62,7 +62,7 @@ usart_t usart_init(usart_config_t config) {
     return usart;
 }
 
-void usart_putc(usart_t *usart, uint8_t data) {
+void usart_putc(uint8_t data) {
     while (!(USART0.STATUS & USART_DREIF_bm));
     USART0.TXDATAL = data;
 }
@@ -73,12 +73,12 @@ void usart_puts(usart_t *usart, const char *str) {
     }
 }
 
-uint8_t usart_getc(usart_t *usart) {
+uint8_t usart_getc() {
     while (!(USART0.STATUS & USART_RXCIF_bm));
     return USART0.RXDATAL;
 }
 
-uint8_t usart_available(usart_t *usart) {
+uint8_t usart_available() {
     return (USART0.STATUS & USART_RXCIF_bm) ? 1 : 0;
 }
 

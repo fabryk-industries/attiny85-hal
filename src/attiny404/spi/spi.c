@@ -42,18 +42,18 @@ spi_t spi_init(spi_config_t config) {
     return spi;
 }
 
-uint8_t spi_transfer(spi_t *spi, uint8_t data) {
+uint8_t spi_transfer(uint8_t data) {
     SPI0.DATA = data;
     while (!(SPI0.INTFLAGS & SPI_IF_bm));
     return SPI0.DATA;
 }
 
-void spi_write(spi_t *spi, uint8_t data) {
+void spi_write(uint8_t data) {
     SPI0.DATA = data;
     while (!(SPI0.INTFLAGS & SPI_IF_bm));
 }
 
-uint8_t spi_read(spi_t *spi) {
+uint8_t spi_read() {
     SPI0.DATA = 0xFF;
     while (!(SPI0.INTFLAGS & SPI_IF_bm));
     return SPI0.DATA;

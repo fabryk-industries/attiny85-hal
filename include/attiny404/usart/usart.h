@@ -44,13 +44,13 @@ typedef struct {
 
 usart_t usart_init(usart_config_t config);
 
-void usart_putc(usart_t *usart, uint8_t data);
+void usart_putc(uint8_t data);
 
 void usart_puts(usart_t *usart, const char *str);
 
-uint8_t usart_getc(usart_t *usart);
+uint8_t usart_getc();
 
-uint8_t usart_available(usart_t *usart);
+uint8_t usart_available();
 
 void usart_deinit(void);
 

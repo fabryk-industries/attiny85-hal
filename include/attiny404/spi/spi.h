@@ -30,11 +30,11 @@ typedef struct {
 
 spi_t spi_init(spi_config_t config);
 
-uint8_t spi_transfer(spi_t *spi, uint8_t data);
+uint8_t spi_transfer(uint8_t data);
 
-void spi_write(spi_t *spi, uint8_t data);
+void spi_write(uint8_t data);
 
-uint8_t spi_read(spi_t *spi);
+uint8_t spi_read();
 
 void spi_deinit(void);
 
