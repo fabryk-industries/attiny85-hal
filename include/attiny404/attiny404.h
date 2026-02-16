@@ -20,8 +20,6 @@ extern "C" {
 #include "usart/usart.h"
 #include "twi/twi.h"
 #include "spi/spi.h"
-#include "util/assert.h"
-#include "util/atomic.h"
 
 #ifdef __cplusplus
 }

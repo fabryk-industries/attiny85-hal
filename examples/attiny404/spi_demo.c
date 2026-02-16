@@ -20,7 +20,7 @@ int main(void) {
 
     while (1) {
         uint8_t tx_data = 0x55;
-        uint8_t rx_data = spi_transfer(&spi, tx_data);
+        uint8_t rx_data = spi_transfer(tx_data);
         _delay_ms(100);
     }
 }

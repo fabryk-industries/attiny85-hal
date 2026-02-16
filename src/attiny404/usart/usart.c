@@ -69,7 +69,7 @@ void usart_putc(uint8_t data) {
 
 void usart_puts(usart_t *usart, const char *str) {
     while (*str) {
-        usart_putc(usart, *str++);
+        usart_putc(*str++);
     }
 }
 
