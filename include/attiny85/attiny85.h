@@ -20,7 +20,6 @@ extern "C" {
 #include "usi/spi.h"
 #include "usi/i2c.h"
 #include "uart/uart.h"
-#include "ssd1306/ssd1306.h"
 #include "util/assert.h"
 #include "util/atomic.h"
 
