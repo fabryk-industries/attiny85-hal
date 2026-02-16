@@ -19,26 +19,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: Install AVR toolchain
-        run: |
-          # Download modm prebuilt AVR toolchain (supports modern AVR devices like ATtiny404)
-          curl -fsSL https://github.com/modm-io/avr-gcc/releases/download/v14.2.0/avr-gcc-14.2.0-x86_64-linux-ubuntu24.04.tar.bz2 -o /tmp/avr.tar.bz2
-          sudo tar xjf /tmp/avr.tar.bz2 -C /opt
-          echo "/opt/avr-gcc/bin" >> $GITHUB_PATH
-          export PATH="/opt/avr-gcc/bin:$PATH"
-          avr-gcc --version
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build AVR toolchain Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.avr
+          load: true
+          tags: avr-toolchain:latest
       
       - name: Build library for ${{ matrix.mcu }}
         run: |
-          export PATH="/opt/avr-gcc/bin:$PATH"
-          make MCU=${{ matrix.mcu }} BUILD_DIR=build-${{ matrix.mcu }} clean
-          make MCU=${{ matrix.mcu }} BUILD_DIR=build-${{ matrix.mcu }}
+          docker run --rm -v ${{ github.workspace }}:/workspace avr-toolchain:latest \
+            sh -c "make MCU=${{ matrix.mcu }} BUILD_DIR=build-${{ matrix.mcu }} clean && make MCU=${{ matrix.mcu }} BUILD_DIR=build-${{ matrix.mcu }}"
       
       - name: Build examples for ${{ matrix.mcu }}
         if: matrix.mcu == 'attiny404'
         run: |
-          export PATH="/opt/avr-gcc/bin:$PATH"
-          make MCU=${{ matrix.mcu }} BUILD_DIR=build-${{ matrix.mcu }} examples
+          docker run --rm -v ${{ github.workspace }}:/workspace avr-toolchain:latest \
+            sh -c "make MCU=${{ matrix.mcu }} BUILD_DIR=build-${{ matrix.mcu }} examples"
       
       - name: Upload library artifact
         uses: actions/upload-artifact@v4
@@ -63,11 +64,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: Install AVR toolchain
-        run: |
-          curl -fsSL https://github.com/modm-io/avr-gcc/releases/download/v14.2.0/avr-gcc-14.2.0-x86_64-linux-ubuntu24.04.tar.bz2 -o /tmp/avr.tar.bz2
-          sudo tar xjf /tmp/avr.tar.bz2 -C /opt
-          echo "/opt/avr-gcc/bin" >> $GITHUB_PATH
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build AVR toolchain Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.avr
+          load: true
+          tags: avr-toolchain:latest
       
       - name: Download all library artifacts
         uses: actions/download-artifact@v4

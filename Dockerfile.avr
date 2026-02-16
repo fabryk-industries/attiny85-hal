@@ -1,0 +1,25 @@
+# AVR Toolchain Docker Image for CI
+# Uses modm-io prebuilt AVR-GCC which supports modern AVR devices (ATtiny404, etc.)
+
+FROM ubuntu:24.04
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    bzip2 \
+    sudo \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download and install modm-io AVR toolchain (GCC 14.2.0)
+# This supports modern AVR devices like ATtiny404
+RUN curl -fsSL https://github.com/modm-io/avr-gcc/releases/download/v14.2.0/avr-gcc-14.2.0-x86_64-linux-ubuntu24.04.tar.bz2 -o /tmp/avr.tar.bz2 \
+    && tar xjf /tmp/avr.tar.bz2 -C /opt \
+    && rm /tmp/avr.tar.bz2
+
+# Add AVR toolchain to PATH
+ENV PATH="/opt/avr-gcc/bin:$PATH"
+
+# Verify installation
+RUN avr-gcc --version
+
+WORKDIR /workspace
