@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "tca0.h"
+#include "attiny404/timer/tca0.h"
 
 tca_pwm_t tca_pwm_init(tca_config_t config, tca_pwm_channel_t channel) {
     TCA0.SINGLE.CTRLA = TCA_SINGLE_ENABLE_bm;

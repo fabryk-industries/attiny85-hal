@@ -3,7 +3,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
-#include "gpio/gpio.h"
+#include "attiny404/gpio/gpio.h"
 
 void gpio_get_port_info(gpio_pin_t pin, volatile uint8_t **port,
                         volatile uint8_t **dir, uint8_t *pin_mask) {

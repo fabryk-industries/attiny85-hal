@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <avr/io.h>
-#include "tcb0.h"
+#include "attiny404/timer/tcb0.h"
 
 static uint32_t f_cpu_khz = 16000;
 
